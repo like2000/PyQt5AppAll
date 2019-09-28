@@ -69,8 +69,65 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>Injection</string>
+        </attribute>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>80</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>74</y>
+           <width>80</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>42</y>
+           <width>80</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+        <widget class="QQuickWidget" name="quickWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>120</y>
+           <width>300</width>
+           <height>200</height>
+          </rect>
+         </property>
+         <property name="resizeMode">
+          <enum>QQuickWidget::SizeRootObjectToView</enum>
+         </property>
+        </widget>
+       </widget>
        <widget class="QWidget" name="tab_1">
         <property name="minimumSize">
          <size>
@@ -135,7 +192,7 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <widget class="MatplotlibWidget" name="mplwidget_3">
+           <widget class="MatplotlibWidget" name="mpl_bunch">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>1</horstretch>
@@ -145,7 +202,61 @@
            </widget>
            <widget class="QWidget" name="gridLayoutWidget">
             <layout class="QGridLayout" name="gridLayout_4">
-             <item row="5" column="0">
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Emittance</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QPushButton" name="pb_compute">
+               <property name="text">
+                <string>Compute Voltage Program</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Bunch Intensity</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Filling factor</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QPushButton" name="pb_send">
+               <property name="text">
+                <string>Send Voltage Program</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_6"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="lineEdit_8"/>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="lineEdit_9"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QComboBox" name="comboBox_2"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Impedance Model</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="2">
               <widget class="QFrame" name="frame">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -164,31 +275,7 @@
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Emittance</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <widget class="QPushButton" name="pushButton_4">
-               <property name="text">
-                <string>Compute Voltage Program</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>Bunch Intensity</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QComboBox" name="comboBox_2"/>
-             </item>
-             <item row="2" column="0">
+             <item row="2" column="0" colspan="2">
               <widget class="QFrame" name="frame_2">
                <property name="frameShape">
                 <enum>QFrame::HLine</enum>
@@ -201,91 +288,21 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Filling factor</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="1">
-              <widget class="QPushButton" name="pushButton_5">
-               <property name="text">
-                <string>Send Voltage Program</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit_6"/>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="lineEdit_8"/>
-             </item>
-             <item row="4" column="1">
-              <widget class="QLineEdit" name="lineEdit_9"/>
-             </item>
             </layout>
            </widget>
           </widget>
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>Injection</string>
+         <string>200 MHz Cavities</string>
         </attribute>
-        <widget class="QPushButton" name="pushButton">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>80</width>
-           <height>26</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>74</y>
-           <width>80</width>
-           <height>26</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>42</y>
-           <width>80</width>
-           <height>26</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
-        <widget class="QQuickWidget" name="quickWidget">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>120</y>
-           <width>300</width>
-           <height>200</height>
-          </rect>
-         </property>
-         <property name="resizeMode">
-          <enum>QQuickWidget::SizeRootObjectToView</enum>
-         </property>
-        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_5">
+        <attribute name="title">
+         <string>800 MHz Cavities</string>
+        </attribute>
        </widget>
        <widget class="QWidget" name="tab_3">
         <attribute name="title">

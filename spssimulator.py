@@ -12,17 +12,25 @@ from scipy.interpolate import interp1d
 
 from mplwidget import MatplotlibWidget
 from rfbucket import RfBucket
+from rfbunches import RfBunch
 
 
 class SpsSimulator:
 
     def __init__(self, window):
+        self.cycle = "LHC"
+
         self.mplwidget = self.createMplWidget()
         self.rfbucket = RfBucket()
 
+        self.rfbunch = RfBunch()
+        self.mplBunch = window.ui.mpl_bunch
+        button = window.ui.pb_compute
+        button.clicked.connect(self.plotBunch)
+
         self.readLsaData()
-        self.plotSettings("SFTPRO")
-        self.updateCycle(2000)
+        self.plotSettings(self.cycle)
+        # self.updateCycle(2000)
         self.injectMplWidget(window, self.mplwidget)
 
         slider: QSlider = window.ui.bucketSlider
@@ -44,11 +52,8 @@ class SpsSimulator:
         return widget
 
     def injectMplWidget(self, window, widget):
-        centralWidget = window.centralWidget()
-        tabWidget = centralWidget.findChild(QWidget, name="tabWidget")
-        mplWidget = centralWidget.findChild(QWidget, name="mplwidget")
-
-        tabLayout = tabWidget.widget(0).layout()
+        mplWidget = window.ui.mplwidget
+        tabLayout = window.ui.tab1Layout
         tabLayout.replaceWidget(mplWidget, widget, Qt.FindChildrenRecursively)
 
         button: QPushButton = window.ui.pb_area
@@ -116,9 +121,11 @@ class SpsSimulator:
         ratio = 0  # self.functions['RATIO'](time)
         pdot = self.functions['PDOT'](time)
         area = self.functions['BA'](time)
-        gamma_tr = 23.2
+        gamma_tr = 18.  # 23.2
         self.rfbucket.update_parameters_at(momentum=momentum, pdot=pdot, gamma_tr=gamma_tr, voltage=voltage, area=area,
                                            ratio=ratio)
+        self.rfbunch.update_parameters_at(momentum=momentum, pdot=pdot, gamma_tr=gamma_tr, voltage=voltage, area=area,
+                                          ratio=ratio)
 
     def plotCycle(self, time):
         self.updateCycle(time)
@@ -177,3 +184,33 @@ class SpsSimulator:
         ax.set_xlabel("Time [ms]")
         ax.set_ylabel("Voltage [V]")
         fig.show()
+
+    def plotBunch(self, epsn_z):
+        self.updateCycle(10000)
+        figure = self.mplBunch.figure
+        axes = self.mplBunch.axes
+        epsn_z = 0.2
+
+        n_points = 500
+        dd, pp = np.linspace(-1.5 * pi, 2.5 * pi, n_points), np.linspace(-5e-3, 5e-3, n_points)
+        DD, PP = np.meshgrid(dd, pp)
+
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+
+        EE = self.rfbunch.get_contour_for_emittance(epsn_z=epsn_z)
+        HH = self.rfbunch.hamiltonian(PP, DD)
+        # HH = np.sqrt(np.abs(HH))
+        axes.cla()
+        axes.contourf(DD, PP, HH, levels=30, cmap='cividis', alpha=0.7)
+        axes.contour(DD, PP, HH, levels=[0], colors=['darkred'])
+        axes.contour(DD, PP, HH, levels=[EE], colors=['darkblue'])
+        # axes.plot(dd, +self.rfbunch.dp(dd), c='orange')
+        # axes.plot(dd, -self.rfbunch.dp(dd), c='orange')
+        # axes.plot(dd, +self.rfbunch.dp_bunch_for_emittance(dd, epsn_z=epsn_z), c='purple')
+        # axes.plot(dd, -self.rfbunch.dp_bunch_for_emittance(dd, epsn_z=epsn_z), c='purple')
+        axes.set_xlim(-pi, 2.5 * pi)
+        axes.set_ylim(-5e-3, 5e-3)
+        figure.canvas.draw()
+        figure.canvas.flush_events()
+
+        QApplication.restoreOverrideCursor()
