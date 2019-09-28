@@ -29,7 +29,7 @@ class SpsSimulator:
         slider.setMaximum(self.cycle_length)
         slider.setSingleStep(50)
         slider.setPageStep(50)
-        slider.valueChanged.connect(self.updateCycle)
+        slider.valueChanged.connect(self.plotCycle)
 
     def createMplWidget(self):
         widget = MatplotlibWidget(nrows=1, ncols=1, tight_layout=True)
