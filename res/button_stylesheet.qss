@@ -1,0 +1,33 @@
+
+
+QPushButton#inactive {
+    border: none;
+    color:white;
+    font-size: 12px;
+    background: none;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                     stop: 0 lightgray, stop: 0.32 rgba(63, 63, 63, 255),
+                     stop: 0.33 rgba(31, 31, 31, 255), stop: 0.60 rgba(31, 31, 31, 255),
+                     stop: 1 dimgray);}
+
+QPushButton#enabled {
+    color: white;
+    border: none;
+    background: none;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                      stop: 0 lightgreen, stop: 0.32 rgba(63, 63, 63, 255),
+                      stop: 0.33 rgba(31, 31, 31, 255), stop: 0.60 rgba(31, 31, 31, 255),
+                      stop: 1 green);}
+
+QPushButton#disabled {
+    color: white;
+    border: none;
+    background: none;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                      stop: 0 lightcoral, stop: 0.32 rgba(63, 63, 63, 255),
+                      stop: 0.33 rgba(31, 31, 31, 255), stop: 0.60 rgba(31, 31, 31, 255),
+                      stop: 1 red);}

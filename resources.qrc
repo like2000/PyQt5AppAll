@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>res/elsa2.jpg</file>
+        <file>res/ledbutton.png</file>
+        <file>res/button_stylesheet.qss</file>
+        <file>res/application_stylesheet.qss</file>
+        <file>res/application_stylesheet_dark.qss</file>
+    </qresource>
+</RCC>
