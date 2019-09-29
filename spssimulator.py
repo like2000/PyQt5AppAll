@@ -4,6 +4,7 @@ import re
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from PyQt5.QtWidgets import *
 from scipy.interpolate import interp1d
 
 from algos.rfbucket import RfBucket
@@ -13,42 +14,20 @@ from algos.rfbunches import RfBunch
 class SpsSimulator:
 
     def __init__(self, window):
-        self.cycle = "LHC"
+        selector: QComboBox = window.ui.comboBox
+        selector.currentTextChanged.connect(lambda c: print(c))
+        self.cycle = selector.currentText()
 
-        # self.mplwidget = self.createMplWidget()
-        self.mpl_widget = window.ui.mpl_bunch
+        splitter: QSplitter = window.ui.splitter
+        splitter.setStretchFactor(0, 1)
+        splitter.setStretchFactor(1, 2)
+        splitter.setSizes([100, 900])
+
         self.rfbucket = RfBucket()
         self.rfbunch = RfBunch()
 
         self.readLsaData()
         self.getSettings(self.cycle)
-        # self.plotSettings(self.cycle)
-        # self.updateCycle(2000)
-        # self.injectMplWidget(window, self.mplwidget)
-
-    # def createMplWidget(self):
-    #     widget = MatplotlibWidget(nrows=1, ncols=1, tight_layout=True)
-    #
-    #     widget.figure.clf()
-    #     gs = gridspec.GridSpec(2, 2)
-    #     widget.figure.add_subplot(gs[0, 0])
-    #     widget.figure.add_subplot(gs[0, 1])
-    #     widget.figure.add_subplot(gs[1, :])
-    #     widget.axes = widget.figure.axes
-    #
-    #     return widget
-    #
-    # def injectMplWidget(self, window, widget):
-    #     mplWidget = window.ui.mplwidget
-    #     tabLayout = window.ui.tab1Layout
-    #     tabLayout.replaceWidget(mplWidget, widget, Qt.FindChildrenRecursively)
-    #
-    #     button: QPushButton = window.ui.pb_area
-    #     button.clicked.connect(self.computeBucketArea)
-    #     button: QPushButton = window.ui.pb_voltage
-    #     button.clicked.connect(self.computeVoltage)
-    #     button: QPushButton = window.ui.pb_launch
-    #     button.clicked.connect(self.runCycle)
 
     def readLsaData(self):
         self.data_cycles = dict()
@@ -87,7 +66,7 @@ class SpsSimulator:
         self.functions = self.functions_cycles[cycle]
         self.cycle_length = self.data["MOMENTUM_time"].max()
 
-    def updateCycle(self, time):
+    def updateCycle(self, time=0):
         momentum = self.functions['MOMENTUM'](time)
         voltage = self.functions['VOLTAGE'](time)
         ratio = 0  # self.functions['RATIO'](time)

@@ -14,7 +14,7 @@ class RfBucket:
         self.cycle = simulator.cycle
         self.rfbunch = simulator.rfbunch
 
-        self.mpl_widget = window.ui.mpl_bunch
+        self.mpl_widget: MatplotlibWidget = window.ui.mpl_bunch
         self.figure = self.mpl_widget.figure
         try:
             self.axes = self.mpl_widget.axes.flatten()
@@ -40,6 +40,11 @@ class RfBucket:
         # mplWidget = window.ui.mplwidget
         # tabLayout = window.ui.tab_1.layout()
         # tabLayout.replaceWidget(mplWidget, self.mpl_widget, Qt.FindChildrenRecursively)
+
+        splitter: QSplitter = window.ui.splitter_2
+        splitter.setStretchFactor(0, 3)
+        splitter.setStretchFactor(1, 1)
+        splitter.setSizes([900, 100])
 
         button = window.ui.pb_compute
         button.clicked.connect(self.plotBunch)
