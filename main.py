@@ -4,6 +4,8 @@ from PyQt5 import QtWidgets
 
 import mainwindow
 from spssimulator import SpsSimulator
+from tabs.rf_bucket import RfBucket
+from tabs.rf_cycle import RfCycle
 
 
 class ApplicationWindow(QtWidgets.QMainWindow):
@@ -21,5 +23,6 @@ if __name__ == '__main__':
     win = ApplicationWindow()
 
     sps = SpsSimulator(win)
+    tabs = [RfCycle(win, sps), RfBucket(win, sps), ]
 
     sys.exit(app.exec_())

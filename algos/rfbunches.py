@@ -4,7 +4,7 @@ import numpy as np
 from scipy.constants import c, pi
 from scipy.optimize import minimize
 
-from rfbucket import RfBucket
+from algos.rfbucket import RfBucket
 
 
 class RfBunch(RfBucket):
